@@ -2,6 +2,7 @@ import { ResponseModel } from '../models/response.model';
 import { FormModel } from '../models/form.model';
 import { ApiError } from '../utils/ApiError';
 import { ValidationService } from './validation.service';
+import { escapeCsvValue } from '../utils/helpers';
 
 export interface SubmitResponseMeta {
   ip?: string;
@@ -92,7 +93,7 @@ export const ResponseService = {
           const val = r.data[name];
           row.push(val !== undefined ? JSON.stringify(val) : '');
         });
-        return row.map((v) => `"${String(v).replace(/\n/g, ' ').replace(/"/g, '""')}"`).join(',');
+        return row.map((v) => escapeCsvValue(String(v))).join(',');
       });
 
       return [headers.join(','), ...rows].join('\n');

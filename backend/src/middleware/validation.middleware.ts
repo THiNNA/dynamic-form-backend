@@ -77,7 +77,7 @@ const FormFieldSchema: z.ZodType<any> = z.lazy(() =>
 const FormSettingsSchema = z.object({
   submitButtonText: z.string().default('Submit'),
   successMessage: z.string().default('Form submitted successfully!'),
-  redirectUrl: z.string().url().or(z.literal('')).optional(),
+  redirectUrl: z.string().url().or(z.literal('').transform(() => undefined)).optional(),
   allowMultipleSubmissions: z.boolean().default(true),
   requireAuthentication: z.boolean().default(false),
   notifyOnSubmission: z.boolean().default(false),

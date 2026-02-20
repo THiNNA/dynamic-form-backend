@@ -34,3 +34,7 @@ export async function ensureUniqueSlug(slug: string, model: Model<any>, excludeI
 export function generateId(): string {
   return uuidv4();
 }
+
+export function escapeCsvValue(value: string): string {
+  return `"${value.replace(/\n/g, ' ').replace(/"/g, '""')}"`;
+}

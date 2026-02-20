@@ -94,8 +94,10 @@ const FormSchema = new Schema<IForm>(
   }
 );
 
+const VERSION_FIELDS = ['fields', 'title', 'settings', 'status', 'description'];
+
 FormSchema.pre('save', function (next) {
-  if (!this.isNew && (this.isModified('fields') || this.isModified('title') || this.isModified('settings') || this.isModified('status') || this.isModified('description'))) {
+  if (!this.isNew && VERSION_FIELDS.some((field) => this.isModified(field))) {
     this.version = (this.version || 1) + 1;
   }
   next();
